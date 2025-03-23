@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio UX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+            overflow: hidden;
+            font-size: 18px;
+        }
+
+        /* Container principal */
+        .container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Sections du slide */
+        .slide-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 500%;
+            height: 100%;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            flex-shrink: 0;
+        }
+.qr-code img {
+	background-image: url(qrcode_184955669_3a4e651e561ab12259301351c416aceb.png);
+	background-size: cover;
+}
+
+        /* Navigation */
+        .nav-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .nav-button {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+#projectModal .modal-content .qr-code {
+	background-image: url(qrcode_184955669_3a4e651e561ab12259301351c416aceb.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+            transform: scale(1.1);
+        }
+
+        /* Contenu des sections */
+        h2, p {
+            color: #222;
+        }
+
+        h2 {
+            font-size: 50px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 22px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Boutons généraux */
+        .button {
+            background-color: transparent;
+            color: #333;
+            padding: 12px 30px;
+            font-size: 18px;
+            border: 2px solid #333;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #333;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        /* Projets - section */
+        .projects-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background-color: #fff;
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #f4f4f4;
+        }
+
+        .project-card h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            font-size: 20px;
+            color: #777;
+        }
+
+        /* Modal d'affichage de projet */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .project-modal .modal-content {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .project-modal img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .project-modal .qr-code {
+            margin-top: 20px;
+        }
+
+        .project-modal button {
+            padding: 12px 30px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 22px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-modal button:hover {
+            background-color: #555;
+        }
+
+        /* Formulaire de Contact */
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact label {
+            font-size: 20px;
+            color: #555;
+        }
+
+        .contact input, .contact textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 20px;
+        }
+
+        .contact textarea {
+            height: 120px;
+        }
+
+        .contact button {
+            padding: 14px 30px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 22px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact button:hover {
+            background-color: #555;
+        }
+#projectModal .modal-content #projectImage {
+}
+.container .nav-buttons .nav-button {
+}
+#projectModal .modal-content #projectImage {
+	background-size: contain;
+	background-image: url(qrcode_184955669_3a4e651e561ab12259301351c416aceb.png);
+}
+#projectModal .modal-content .qr-code {
+	background-image: url(qrcode_184955669_3a4e651e561ab12259301351c416aceb.png);
+	background-size: contain;
+}
+#projectModal .modal-content .qr-code {
+	width: 60%;
+	height: 300px;
+	background-image: url(qrcode_184955669_3a4e651e561ab12259301351c416aceb.png);
+	background-size: contain;
+	text-align: center;
+	background-position: 50% 0%;
+}
+#projectModal .modal-content .qr-code {
+}
+#projectModal .modal-content .qr-code {
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: contain;
+	margin-left: 19%;
+}
+div .projects-container .project-card {
+	width: 50%;
+}
+div .competence h3 {
+	margin-bottom: 31px;
+	margin-top: 31px;
+}
+.competence ul li {
+	font-weight: bolder;
+}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 35px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+div form #message {
+	height: 301px;
+	width: 49%;
+}
+
+            .projects-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .project-card {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Slide show container -->
+        <div class="slide-container" id="slideContainer">
+            <div class="slide" id="home">
+                <div>
+                    <h2>Bienvenue sur mon Portfolio</h2>
+                    <p>Vous pouvez naviguez sur la page grâce aux flèches sur les extrémités</p>
+                </div>
+            </div>
+            <div class="slide" id="about">
+                <div>
+                    <h2>À propos de moi</h2>
+                    <p>Je m'appelle Mathéo Juguet, j'ai 20 ans et je suis passionné par l'UX design et la communication digital.</p><br>
+                </div>
+            </div>
+            <div class="slide" id="projects">
+                <div>
+                    <h2>Mes Projets</h2>
+                    <p>Pour le moment, je n'ai qu'un seul projet en relation avec le design d'interface. J'ai cependant une pub factice pour la marque Lancia.</p>
+                    <!-- Projets -->
+                    <div class="projects-container">
+                        <div class="project-card">
+                            <h3>Refonte Echo Vannetais</h3>
+                            <p>Projet de fin d'étude </p>
+                            <button class="button" onclick="openProject('project1')">Voir le projet</button>
+                        </div>
+						 <div class="project-card">
+                            <h3>Pub Lancia</h3>
+                            <p>Projet Etudiant </p>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/IqJDNE0EifQ?si=X5osLoMlCQ3QvE6u" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                 
+                    </div>
+                </div>
+            </div>
+            <div class="slide" id="skills">
+                <div>
+                    <h2>Compétences</h2>
+                    <p>Voici mes compétences principales dans le domaine du design.</p>
+					<div class="competence">
+  <h3>Outils de Design</h3>
+  <ul>
+    <li>Photoshop</li>
+    <li>Illustrator</li>
+    <li>InDesign</li>
+    <li>Blender</li>
+  </ul>
+</div>
+
+<div class="competence">
+  <h3>Développement</h3>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>PHP</li>
+    <li>SQL</li>
+  </ul>
+</div>
+
+<div class="competence">
+  <h3>Outils de Montage Vidéo</h3>
+  <ul>
+    <li>DaVinci Resolve</li>
+  </ul>
+</div>
+
+<div class="competence">
+  <h3>Outils de Développement Web</h3>
+  <ul>
+    <li>Dreamweaver</li>
+  </ul>
+</div>
+                </div>
+            </div>
+            <div class="slide" id="contact">
+                <div>
+                    <h2>Contactez-moi</h2>
+                    <form action="#" method="POST">
+                        <label for="name">Nom</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+
+                        <button type="submit">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="moveSlide(-1)">&#8592;</button>
+            <button class="nav-button" onclick="moveSlide(1)">&#8594;</button>
+        </div>
+
+        <!-- Modal de projet -->
+        <div id="projectModal" class="project-modal">
+            <div class="modal-content">
+                <h2>Projet Détails</h2>
+                <img id="projectImage" src="qrcode_184955669_3a4e651e561ab12259301351c416aceb.png" alt="">
+                <div class="qr-code">
+                   
+                </div>
+                <button onclick="closeProject()">Fermer</button>
+            </div>
+			
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        // Fonction pour déplacer le diaporama
+        function moveSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+
+            // Calculer la nouvelle position
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+
+            // Appliquer la transformation pour déplacer le slide
+            const slideContainer = document.getElementById('slideContainer');
+            slideContainer.style.transform = `translateX(-${currentSlide * 100}vw)`;
+        }
+
+        // Fonction pour ouvrir un projet
+        function openProject(projectId) {
+            const modal = document.getElementById('projectModal');
+            const projectImage = document.getElementById('projectImage');
+
+            if (projectId === 'project1') {
+                projectImage.src = 'https://via.placeholder.com/600x400'; // Remplacer par l'image réelle du projet
+            } else {
+                projectImage.src = 'https://via.placeholder.com/600x400/ff0000'; // Image alternative
+            }
+
+            modal.style.display = 'flex';
+        }
+		// Fonction pour ouvrir un projet
+        function openProject(projectId) {
+            const modal = document.getElementById('projectModal');
+            const projectImage = document.getElementById('projectImage');
+
+            if (projectId === 'project2') {
+                projectImage.src = 'https://via.placeholder.com/600x400'; // Remplacer par l'image réelle du projet
+            } else {
+                projectImage.src = 'https://via.placeholder.com/600x400/ff0000'; // Image alternative
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        // Fonction pour fermer le modal
+        function closeProject() {
+            const modal = document.getElementById('projectModal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
